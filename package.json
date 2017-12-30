@@ -6,11 +6,16 @@
   "license": "MIT",
   "scripts": {
     "server": "nodemon server/server.js --exec babel-node",
-    "build": "preact build ./client --no-prerender",
-    "watch": "preact watch ./client"
+    "client": "preact watch ./client",
+    "build:server": "babel server -d dist && npm run minify",
+    "build:client": "preact build ./client --no-prerender",
+    "build": "npm run build:server && npm run build:client",
+    "minify": "minify dist -d dist",
+    "start": "node dist/server.js"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-minify": "^0.2.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-es2017": "^6.24.1",
     "babel-preset-node8": "^1.2.0",
