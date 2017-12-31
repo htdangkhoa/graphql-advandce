@@ -1,7 +1,21 @@
+import 'bootstrap/dist/css/bootstrap.css';
 import {
     h,
-    render
+    render,
+    Component
 } from 'preact'
 import Router from './Components/Router'
+import Header from './Components/Header'
 
-render(<Router/>, document.body)
+class Container extends Component {
+    render() {
+        return(
+            <div>
+                <Header/>
+                <Router/>
+            </div>
+        )
+    }
+}
+
+render(<Container/>, document.body)

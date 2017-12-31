@@ -3,6 +3,7 @@
         "es2015",
         "stage0",
         "react",
+        "react-dom",
         { "jsxPragma": "h" }
     ],
     "plugins": [

@@ -26,6 +26,7 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
+    "bootstrap": "^4.0.0-beta.2",
     "compression": "^1.7.1",
     "connect-timeout": "^1.9.0",
     "consolidate": "^0.15.0",
@@ -41,6 +42,8 @@
     "preact": "^8.2.7",
     "preact-compat": "^3.17.0",
     "preact-router": "^2.6.0",
+    "react-icons": "^2.2.7",
+    "reactstrap": "next",
     "styled-components": "^2.4.0"
   }
 }
