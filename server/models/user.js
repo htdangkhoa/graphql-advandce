@@ -1,13 +1,12 @@
-import mongoose from'mongoose'
+import mongoose, { Schema, Types } from'mongoose'
 import bcrypt from 'bcryptjs'
 
-const Schema = mongoose.Schema
 const saltRound = 10
 
 const User = new Schema({
     _id: {
         type: Schema.Types.ObjectId,
-        default: () => { return mongoose.Types.ObjectId() }
+        default: () => { return Types.ObjectId() }
     },
     username: {
         type: Schema.Types.String,
