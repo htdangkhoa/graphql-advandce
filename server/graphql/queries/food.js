@@ -6,9 +6,12 @@ const SearchWithFilters = (_, args) => {
 
     if (filters.name) {
         Object.assign(options, {
+            // name: {
+            //     '$regex': filters.name,
+            //     '$options': 'i'
+            // }
             name: {
-                '$regex': filters.name,
-                '$options': 'i'
+                $search: filters.name
             }
         })
     }
@@ -26,11 +29,37 @@ const SearchWithFilters = (_, args) => {
     return new Promise((resolve, reject) => {
         if (limit && limit > 20) return reject('Limit is too large.')
 
-        Food.find(options, (error, foods) => {
+        Food
+        // .aggregate([{
+        //     $match: {
+        //         $text: {
+        //             $search: filters.name
+        //         }
+        //     }
+        // }, {
+        //     $group: {
+        //         _id: { name: '$name' }
+        //     }
+        // }])
+        // .then(result => {
+        //     console.log(result)
+        //     return resolve(result)
+        // })
+        // .catch(error => {
+        //     return reject(error)
+        // })
+        .find({
+            $text: {
+                $search: filters.name
+            }
+        }, (error, foods) => {
             if (error) return reject(error)
 
+            console.log(foods.length)
+
             return resolve(foods)
-        }).sort().limit((limit) ? limit : 5)
+        })
+        .sort().limit((limit) ? limit : 1000)
     })
 }
 

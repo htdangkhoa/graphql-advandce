@@ -20,6 +20,9 @@ const Food = new Schema({
         type: Schema.Types.String,
         required: true
     },
+    discription: {
+        type: Schema.Types.String
+    },
     categories: {
         type: Schema.Types.Mixed,
         required: true
@@ -67,6 +70,8 @@ const Food = new Schema({
             return moment().format('MMMM Do YYYY, h:mm:ss a')
         }
     }
+}, {
+    autoIndex: true
 })
 
 export default mongoose.model('food', Food)

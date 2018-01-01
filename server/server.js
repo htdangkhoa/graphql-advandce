@@ -1,3 +1,5 @@
+import cluster from 'cluster'
+import os from 'os'
 import dotenv from 'dotenv'
 import morgan from 'morgan'
 import express from 'express'
@@ -13,6 +15,7 @@ import schema from './graphql/schema'
 
 dotenv.config()
 
+const numCPUs = os.cpus().length
 const app = express()
 
 mongoose.connect(process.env.DB_URI, (error, db) => {
@@ -52,6 +55,41 @@ app.use([
     timeout('5s')
 ])
 
+// if (cluster.isMaster) {
+//     console.log(`Server is running on port ${process.env.PORT}`)
+//     console.log(`Master ${process.pid} is running`)
+
+//     for (let i = 0; i < numCPUs; i++) {
+//         cluster.fork()
+//     }
+
+//     cluster.on('exit', (worker, code, signal) => {
+//         console.log(`worker %d died (%s). restarting...`, worker.process.pid, signal || code)
+
+//         cluster.fork()
+//     })
+// } else {
+//     app.use('/graphiql', graphqlHTTP((req, res) => {
+//         var startTime = Date.now()
+    
+//         return {
+//             schema,
+//             graphiql: true,
+//             extensions({ document, variables, operationName, result }) {
+//                 return { runTime: `${Date.now() - startTime}ms` }
+//             }
+//         }
+//     }))
+
+//     app.use((req, res) => {
+//         res.status(404).send(`${res.statusCode}: Not Found`)
+//     })
+    
+//     app.listen(process.env.PORT, () => {
+//         console.log(`Server is running on port ${process.env.PORT}`)
+//     })
+// }
+
 app.use('/graphiql', graphqlHTTP((req, res) => {
     var startTime = Date.now()
 
@@ -63,6 +101,10 @@ app.use('/graphiql', graphqlHTTP((req, res) => {
         }
     }
 }))
+
+app.use((req, res) => {
+    res.status(404).send(`${res.statusCode}: Not Found`)
+})
 
 app.listen(process.env.PORT, () => {
     console.log(`Server is running on port ${process.env.PORT}`)

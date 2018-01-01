@@ -9,34 +9,42 @@ mongoose.connect('mongodb://localhost:27017/easy_graphql', (error, db) => {
 })
 
 var arrKey = ['gà', 'vịt', 'dê', 'nướng', 'gỏi', 'lẩu', 'bún', 'hủ tiếu', 'mì', 'bún bò']
-var skip = 0
+var skip = 5
 var limit = 30
 var count = 0
 
-for (var i = 0; i < arrKey.length; i++) {
-    new Promise((rs, rj) => {
-        createData(arrKey[i], error => {
-            if (error) {
-                var { status, statusText } = error.response
-                console.log({
-                    status,
-                    statusText
-                })
-                return rj(process.exit())
-            }
-
-            return rs()
-        })
+for (var j = 0; j < skip; j++) {
+    new Promise((resolve, reject) => {
+        resolve(createDataWithSkip(j))
     })
 }
 
-function createData(key, cb) {
+function createDataWithSkip(__skip) {
+    for (var i = 0; i < arrKey.length; i++) {
+        new Promise((rs, rj) => {
+            createData(arrKey[i], __skip, error => {
+                if (error) {
+                    var { status, statusText } = error.response
+                    console.log({
+                        status,
+                        statusText
+                    })
+                    return rj(process.exit())
+                }
+
+                return rs()
+            })
+        })
+    }
+}
+
+function createData(key, __skip, cb) {
     axios.request({
         url: 'https://latte.lozi.vn/v1.2/search/blocks',
         method: 'get',
         params: {
             q: key,
-            skip,
+            skip: __skip,
             limit,
             t: 'popular',
             cityId: 50
@@ -73,7 +81,7 @@ function createData(key, cb) {
                         if (e) return reject(e)
 
                         console.log(r)
-                        if (count === (arrKey.length * limit) - 1) return resolve(process.exit())
+                        if (count === (arrKey.length * limit * skip) - 1) return resolve(process.exit())
                         
                         count += 1
                         resolve(count)

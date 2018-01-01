@@ -12,6 +12,7 @@
     "build": "npm run build:server && npm run build:client",
     "minify": "minify dist -d dist",
     "start": "node dist/server.js",
+    "deploy": "pm2 delete all && pm2 start dist/server.js -n graphql-express -i 4",
     "dummy:data": "babel-node dummyData.js --presets es2017,stage-3,node8"
   },
   "devDependencies": {
