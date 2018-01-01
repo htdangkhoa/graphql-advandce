@@ -57,6 +57,7 @@ function createData(key, __skip, cb) {
             new Promise((resolve, reject) => {
                 var { dish } = data[i]
                 var { slug } = data[i]
+                var { caption } = data[i]
     
                 axios.request({
                     url: 'https://latte.lozi.vn/v1.2/blocks/slug:' + slug + '/images'
@@ -71,6 +72,7 @@ function createData(key, __skip, cb) {
                     
                     new Food({
                         name: dish.food.name,
+                        discription: caption,
                         categories: dish.eatery.categories,
                         eatary: {
                             name: dish.eatery.name,
