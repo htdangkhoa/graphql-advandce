@@ -24,15 +24,36 @@ const Food = new Schema({
         type: Schema.Types.Mixed,
         required: true
     },
-    address: {
-        type: Schema.Types.String,
-        required: true
+    eatary: {
+        /**
+         * Child data is a json including 
+         * name of restaurant
+         * and
+         * address of restarant
+         * @example:
+         * {
+         *  name: 'abc'
+         *  address: 'abc xyz'
+         * }
+         */
+        type: Schema.Types.Mixed
     },
     images: {
         type: Schema.Types.Mixed
     },
-    viewTotal: {
-        type: Schema.Types.Number
+    isOpening: {
+        type: Schema.Types.Boolean,
+        default: false
+    },
+    score: {
+        type: Schema.Types.Mixed,
+        default: () => {
+            return {
+                total: 0,
+                count: 0,
+                average: 0
+            }
+        }
     },
     createAt: {
         type: Schema.Types.String,
