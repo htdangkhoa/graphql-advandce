@@ -9,16 +9,27 @@ mongoose.connect('mongodb://localhost:27017/easy_graphql', (error, db) => {
 })
 
 var arrKey = ['gà', 'vịt', 'dê', 'nướng', 'gỏi', 'lẩu', 'bún', 'hủ tiếu', 'mì', 'bún bò']
-var limit = 20
+var limit = 30
 var count = 0
 
 for (var i = 0; i < arrKey.length; i++) {
     new Promise((rs, rj) => {
-        rs(createData(arrKey[i], i))
+        createData(arrKey[i], error => {
+            if (error) {
+                var { status, statusText } = error.response
+                console.log({
+                    status,
+                    statusText
+                })
+                return rj(process.exit())
+            }
+
+            return rs()
+        })
     })
 }
 
-function createData(key) {
+function createData(key, cb) {
     axios.request({
         url: 'https://latte.lozi.vn/v1.2/search/blocks',
         method: 'get',
@@ -75,9 +86,6 @@ function createData(key) {
         }
     })
     .catch(function(error) {
-        console.log({
-            status: error.status,
-            statusText: error.statusText
-        })
+        cb(error)
     })
 }
