@@ -18,14 +18,16 @@ const Food = new Schema({
     },
     name: {
         type: Schema.Types.String,
-        required: true
+        required: true,
+        index: true
     },
     discription: {
         type: Schema.Types.String
     },
     categories: {
         type: Schema.Types.Mixed,
-        required: true
+        required: true,
+        index: true
     },
     eatary: {
         /**
@@ -70,8 +72,6 @@ const Food = new Schema({
             return moment().format('MMMM Do YYYY, h:mm:ss a')
         }
     }
-}, {
-    autoIndex: true
 })
 
 export default mongoose.model('food', Food)
