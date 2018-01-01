@@ -52,9 +52,16 @@ app.use([
     timeout('5s')
 ])
 
-app.use('/graphiql', graphqlHTTP({
-    schema,
-    graphiql: true
+app.use('/graphiql', graphqlHTTP((req, res) => {
+    var startTime = Date.now()
+
+    return {
+        schema,
+        graphiql: true,
+        extensions({ document, variables, operationName, result }) {
+            return { runTime: `${Date.now() - startTime}ms` }
+        }
+    }
 }))
 
 app.listen(process.env.PORT, () => {

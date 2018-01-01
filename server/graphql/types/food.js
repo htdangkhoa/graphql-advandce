@@ -3,9 +3,10 @@ export default `
         id: String,
         name: String,
         categories: [String],
-        address: String,
+        eatary: JSON,
         images: [String],
-        viewTotal: Int,
+        isOpening: Boolean,
+        score: JSON
         createAt: String!,
         updateAt: String!
     }

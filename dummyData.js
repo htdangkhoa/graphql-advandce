@@ -9,6 +9,7 @@ mongoose.connect('mongodb://localhost:27017/easy_graphql', (error, db) => {
 })
 
 var arrKey = ['gà', 'vịt', 'dê', 'nướng', 'gỏi', 'lẩu', 'bún', 'hủ tiếu', 'mì', 'bún bò']
+var skip = 0
 var limit = 30
 var count = 0
 
@@ -35,7 +36,7 @@ function createData(key, cb) {
         method: 'get',
         params: {
             q: key,
-            skip: 0,
+            skip,
             limit,
             t: 'popular',
             cityId: 50
