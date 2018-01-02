@@ -2,7 +2,9 @@ import Food from '../../models/food'
 
 const SearchWithFilters = (_, args) => {
     var { filters, skip, limit } = args
-    var options = {}
+    var options = {
+        $and: []
+    }
     
     if (JSON.stringify(filters) === '{}') throw `Oh, what's happening? Fucking wow shit...`
 
@@ -10,8 +12,8 @@ const SearchWithFilters = (_, args) => {
      * Filter with name.
      */
     if (filters.name) {
-        Object.assign(options, {
-            name: {
+        options['$and'].push({
+            'name': {
                 '$regex': filters.name,
                 '$options': 'i'
             }
@@ -22,12 +24,8 @@ const SearchWithFilters = (_, args) => {
      * Filter with categories.
      */
     if (filters.categories) {
-        Object.assign(options, {
-            $or: [
-                { 
-                    'categories': filters.categories 
-                }
-            ]
+        options['$and'].push({ 
+            'categories': filters.categories
         })
     }
 
@@ -35,15 +33,8 @@ const SearchWithFilters = (_, args) => {
      * Filter with district.
      */
     if (filters.district) {
-        Object.assign(options, {
-            $or: [
-                {
-                    'eatary.district': { 
-                        '$regex': filters.district,
-                        '$options': 'i'
-                    }
-                }
-            ]
+        options['$and'].push({ 
+            'eatary.district': filters.district
         })
     }
 
@@ -51,15 +42,11 @@ const SearchWithFilters = (_, args) => {
      * Filter with city.
      */
     if (filters.city) {
-        Object.assign(options, {
-            $or: [
-                {
-                    'eatary.city': { 
-                        '$regex': filters.city,
-                        '$options': 'i'
-                    }
-                }
-            ]
+        options['$and'].push({ 
+            'eatary.city': {
+                '$regex': filters.city,
+                '$options': 'i'
+            }
         })
     }
 
@@ -67,15 +54,11 @@ const SearchWithFilters = (_, args) => {
      * Filter with street.
      */
     if (filters.street) {
-        Object.assign(options, {
-            $or: [
-                {
-                    'eatary.street': { 
-                        '$regex': filters.street,
-                        '$options': 'i'
-                    }
-                }
-            ]
+        options['$and'].push({ 
+            'eatary.street': {
+                '$regex': filters.street,
+                '$options': 'i'
+            }
         })
     }
 
