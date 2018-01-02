@@ -1,4 +1,5 @@
 # graphql-advandce
+In this project, i'm using data from [lozi.vn](https://lozi.vn). Thanks Lozi.
 > This project is using GraphQL and PReact.  
 > - Document for [GraphQL](http://graphql.org/learn/)
 > - Document for [PReact](https://github.com/developit/preact/wiki)
@@ -14,6 +15,10 @@
 - **Install dependencies**
     ```
     yarn
+    ```
+- **Generate dummy data**
+    ```shell
+    yarn dummy:data
     ```
 - **On server**
     ```shell
