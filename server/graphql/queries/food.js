@@ -3,7 +3,12 @@ import Food from '../../models/food'
 const SearchWithFilters = (_, args) => {
     var { filters, skip, limit } = args
     var options = {}
+    
+    if (JSON.stringify(filters) === '{}') throw `Oh, what's happening? Fucking wow shit...`
 
+    /**
+     * Filter with name.
+     */
     if (filters.name) {
         Object.assign(options, {
             name: {
@@ -13,10 +18,63 @@ const SearchWithFilters = (_, args) => {
         })
     }
 
+    /**
+     * Filter with categories.
+     */
     if (filters.categories) {
         Object.assign(options, {
             $or: [
-                {'categories': filters.categories}
+                { 
+                    'categories': filters.categories 
+                }
+            ]
+        })
+    }
+
+    /**
+     * Filter with district.
+     */
+    if (filters.district) {
+        Object.assign(options, {
+            $or: [
+                {
+                    'eatary.district': { 
+                        '$regex': filters.district,
+                        '$options': 'i'
+                    }
+                }
+            ]
+        })
+    }
+
+    /**
+     * Filter with city.
+     */
+    if (filters.city) {
+        Object.assign(options, {
+            $or: [
+                {
+                    'eatary.city': { 
+                        '$regex': filters.city,
+                        '$options': 'i'
+                    }
+                }
+            ]
+        })
+    }
+
+    /**
+     * Filter with street.
+     */
+    if (filters.street) {
+        Object.assign(options, {
+            $or: [
+                {
+                    'eatary.street': { 
+                        '$regex': filters.street,
+                        '$options': 'i'
+                    }
+                }
             ]
         })
     }
@@ -29,8 +87,6 @@ const SearchWithFilters = (_, args) => {
         Food
         .find(options, (error, foods) => {
             if (error) return reject(error)
-
-            console.log(foods.length)
 
             return resolve(foods)
         })

@@ -75,8 +75,11 @@ function createData(key, __skip, cb) {
                         discription: caption,
                         categories: dish.eatery.categories,
                         eatary: {
-                            name: dish.eatery.name,
-                            address: dish.eatery.address.full
+                            name: dish['eatery']['name'],
+                            full: dish['eatery']['address']['full'],
+                            street: dish['eatery']['address']['street'],
+                            district: dish['eatery']['address']['district'],
+                            city: dish['eatery']['address']['city']
                         },
                         images: newArr
                     }).save((e, r) => {
