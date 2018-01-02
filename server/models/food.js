@@ -41,7 +41,8 @@ const Food = new Schema({
          *  address: 'abc xyz'
          * }
          */
-        type: Schema.Types.Mixed
+        type: Schema.Types.Mixed,
+        index: true
     },
     images: {
         type: Schema.Types.Mixed
