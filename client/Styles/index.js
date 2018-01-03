@@ -1,5 +1,5 @@
 import styledComponents from 'styled-components'
-import { MainColor } from './Colors'
+import { MainGray } from './Colors'
 import { MontserratRegular } from './Fonts'
 
 export default styledComponents.div`
@@ -11,7 +11,7 @@ export default styledComponents.div`
         }
     }
 
-    background-color: ${MainColor};
+    background-color: ${MainGray};
 
     .center {
         position: absolute;

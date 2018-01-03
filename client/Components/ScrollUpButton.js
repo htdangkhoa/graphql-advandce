@@ -10,6 +10,9 @@ import {
     TiArrowUpThick
 } from 'react-icons/ti'
 import styledComponents from 'styled-components'
+import {
+    MainPink
+} from '../Styles/Colors'
 
 const Wrapper = styledComponents.button`
     background: #fff;
@@ -39,7 +42,7 @@ export default class ScrollUpButton extends Component {
     render() {
         return(
             <Wrapper>
-                <TiArrowUpThick color='#000' size={25} />
+                <TiArrowUpThick color={MainPink} size={25} />
             </Wrapper>
         )
     }

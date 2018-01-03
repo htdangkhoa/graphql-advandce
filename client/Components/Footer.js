@@ -7,11 +7,11 @@ import {
     Container
 } from 'reactstrap'
 import styledComponents from 'styled-components'
-import { MainColor } from '../Styles/Colors';
+import { MainGray } from '../Styles/Colors';
 import ScrollUpButton from '../Components/ScrollUpButton'
 
 const Wrapper = styledComponents.footer`
-    background: ${MainColor};
+    background: ${MainGray};
     position: absolute;
     width: 100%;
     height: 100px;
