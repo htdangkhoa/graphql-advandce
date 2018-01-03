@@ -14,6 +14,7 @@ import {
     DropdownMenu,
     DropdownItem,
     Input,
+    Container
 } from 'reactstrap'
 import * as Typicons from 'react-icons/ti'
 import Styled from 'styled-components'
@@ -44,28 +45,30 @@ export default class Header extends Component {
     render() {
         return(
             <Wrapper>
-                <Navbar color="faded" light expand="md">
-                    <NavbarBrand href="/">Food Finder</NavbarBrand>
-                    {/* <NavbarToggler onClick={this.toggle} /> */}
-                    <Nav className="ml-auto" navbar>
-                        <NavItem>
-                            <Input placeholder='Search'/>
-                        </NavItem>
-                        <NavItem>
-                            <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-                                <DropdownToggle caret size="md">
-                                    Location
-                                </DropdownToggle>
-                                <DropdownMenu className='listLocation'>
-                                    <DropdownItem>Another Action</DropdownItem>
-                                </DropdownMenu>
-                            </ButtonDropdown>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink href="/signin">Sign in</NavLink>
-                        </NavItem>
-                    </Nav>
-                </Navbar>
+                <Container>
+                    <Navbar color="faded" light expand="md">
+                        <NavbarBrand href="/">Food Finder</NavbarBrand>
+                        {/* <NavbarToggler onClick={this.toggle} /> */}
+                        <Nav className="ml-auto" navbar>
+                            <NavItem>
+                                <Input placeholder='Search'/>
+                            </NavItem>
+                            <NavItem>
+                                <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+                                    <DropdownToggle caret size="md">
+                                        Location
+                                    </DropdownToggle>
+                                    <DropdownMenu className='listLocation'>
+                                        <DropdownItem>Another Action</DropdownItem>
+                                    </DropdownMenu>
+                                </ButtonDropdown>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink href="/signin">Sign in</NavLink>
+                            </NavItem>
+                        </Nav>
+                    </Navbar>
+                </Container>
             </Wrapper>
         )
     }

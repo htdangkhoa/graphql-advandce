@@ -3,11 +3,13 @@ import {
     render,
     Component
 } from 'preact'
-import styleComponent from 'styled-components'
+import styleComponents from 'styled-components'
 
-const Styles = styleComponent.div`
+const Styles = styleComponents.div`
+    $red: '#f00'
+
     .test {
-        background: #f00;
+        background: $red;
     }
 `
 

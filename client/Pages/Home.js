@@ -3,6 +3,9 @@ import {
     render,
     Component
 } from 'preact'
+import {
+    Container
+} from 'reactstrap'
 
 export default class Home extends Component {
     render() {
