@@ -36,7 +36,12 @@ const Wrapper = styledComponents.button`
     -webkit-justify-content: center;
     -ms-flex-pack: center;
     justify-content: center;
-    box-shadow: 0 0 8px 0 rgba(0,0,0,0.12), 0 5px 15px 0 rgba(0,0,0,.25);
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, .12), 0 5px 15px 0 rgba(0, 0, 0, .25);
+
+    &:active, &:focus {
+        border: none !important;
+        box-shadow: 0 0 8px 0 rgba(0, 0, 0, .12), 0 5px 15px 0 rgba(0, 0, 0, .25) !important;
+    }
 `.withComponent(Button)
 
 export default class ScrollUpButton extends Component {

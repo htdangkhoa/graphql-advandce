@@ -28,17 +28,32 @@ const Wrapper = styledComponents.div`
         }
     }
 
-    .cardDescriptiom {
+    .card-descriptiom {
         overflow: hidden;
         display: -webkit-box;
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
     }
 
-    img {
-        width: 100%;
+    .image-container {
         max-height: 250px;
-        object-fit: cover;
+        position: relative;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        .opacity {
+            background: linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, .3));
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+        }
     }
 `.withComponent(Card)
 
@@ -46,12 +61,15 @@ export default class CardItem extends Component {
     render() {
         return(
             <Wrapper width={this.props.width}>
-                <CardImg top src={this.props.image} alt="Card image cap" />
+                <div className='image-container'>
+                    <CardImg top src={this.props.image} alt="Card image cap" />
+                    <div className='opacity'/>
+                </div>
                 <CardBody>
                     <a href={'/' + this.props.id}>
                         <h5 data-toggle="tooltip" title={this.props.title} >{this.props.title}</h5>
                     </a>
-                    <span className='cardDescriptiom card-text'>{this.props.description}</span>
+                    <span className='card-descriptiom card-text'>{this.props.description}</span>
                 </CardBody>
             </Wrapper>
         )

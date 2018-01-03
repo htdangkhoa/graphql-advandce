@@ -57,10 +57,10 @@ export default class Header extends Component {
                         <NavbarBrand href="/">Food Finder</NavbarBrand>
                         {/* <NavbarToggler onClick={this.toggle} /> */}
                         <Nav className="ml-auto" navbar>
-                            <NavItem>
+                            <NavItem hidden>
                                 <Input placeholder='Search'/>
                             </NavItem>
-                            <NavItem>
+                            <NavItem hidden>
                                 <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                                     <DropdownToggle caret size="md">
                                         Location
