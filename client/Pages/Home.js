@@ -4,9 +4,23 @@ import {
     Component
 } from 'preact'
 import {
-    Row
+    Row,
+    Col
 } from 'reactstrap'
+import styledComponents from 'styled-components'
 import CardItem from '../Components/CardItem'
+
+const Wrapper = styledComponents.div`
+    margin-left: -5px;
+    margin-right: -5px;
+    
+    div[class*='col'] {
+        padding-left: 5px;
+        padding-right: 5px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+`.withComponent(Row)
 
 export default class Home extends Component {
     constructor(props) {
@@ -18,40 +32,31 @@ export default class Home extends Component {
     }
 
     componentDidMount() {
-        fetch('http://latte.lozi.vn/v1.2/search/blocks?skip=0&q=gà&limit=20&t=popular&cityId=50')
+        fetch('http://latte.lozi.vn/v1.2/search/blocks?skip=0&q=gà&limit=24&t=popular&cityId=50')
             .then(result => {
                 return result.json()
             })
             .then(response => {
                 var { data } = response
-                
-                var newArr = []
-                while (data.length > 0) newArr.push(data.splice(0, 5))
-
-                this.setState({ data: newArr })
+                this.setState({ data: data })
                 
                 console.log(this.state.data)
-                response.data.map((ele) => {
-                    return(
-                        <Row/>
-                    )
-                })
             })
     }
 
     render() {
         return(
-            <div>{
-                this.state.data.map((elelent) => {
-                    return(
-                        <Row>{
-                            elelent.map((data) => {
-                                return <CardItem width={100/5} id={data._id} image={data.image} title={data.dish.eatery.name} description={data.caption}/>
-                            })
-                        }</Row>
-                    )
-                })
-            }</div>
+            <div>
+                <Wrapper className='row-eq-height'>{
+                    this.state.data.map((data) => {
+                        return(
+                            <Col lg='2' md='3' sm='4' xs='6'>
+                                <CardItem width={100} id={data._id} image={data.image} title={data.dish.eatery.name} description={data.caption}/>
+                            </Col>
+                        )
+                    })
+                }</Wrapper> 
+            </div>
         )
     }
 }

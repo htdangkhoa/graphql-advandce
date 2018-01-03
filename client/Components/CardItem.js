@@ -13,8 +13,8 @@ import {
 import styledComponents from 'styled-components'
 
 const Wrapper = styledComponents.div`
-    width: calc(${ props => props.width }% - 16px);
-    margin: 5px;
+    width: 100%;
+    height: 100%;
     border-radius: 8px;
 
     a {
