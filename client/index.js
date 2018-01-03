@@ -4,30 +4,21 @@ import {
     render,
     Component
 } from 'preact'
-import styledComponents from 'styled-components'
-import Router from './Components/Router'
+import Wrapper from './Styles'
 import Header from './Components/Header'
-
-const Wrapper = styledComponents.div`
-    @import url('https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,700,700i');
-
-    $montserrat: 'Montserrat', sans-serif
-
-    body, * {
-        font-family: 'Montserrat', sans-serif;
-        font-weight: 
-    }
-`
+import Router from './Components/Router'
+import Footer from './Components/Footer'
 
 class Container extends Component {
     render() {
         return(
             <Wrapper>
-                <Header/>
-                <Router/>
+                <Header />
+                <Router />
+                <Footer />
             </Wrapper>
         )
     }
 }
 
-render(<Container/>, document.body)
+render(<Container />, document.body)

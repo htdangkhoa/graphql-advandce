@@ -12,8 +12,6 @@ export default class Home extends Component {
         return(
             <div>
                 <span>This is home page.</span>
-                <br/>
-                <a href="/">Back</a>
             </div>
         )
     }
