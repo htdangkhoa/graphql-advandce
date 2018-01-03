@@ -13,6 +13,7 @@ import styledComponents from 'styled-components'
 import {
     MainPink
 } from '../Styles/Colors'
+import polyfill from 'smoothscroll-polyfill'
 
 const Wrapper = styledComponents.button`
     background: #fff;
@@ -39,9 +40,17 @@ const Wrapper = styledComponents.button`
 `.withComponent(Button)
 
 export default class ScrollUpButton extends Component {
+    componentWillMount() {
+        polyfill.polyfill()
+    }
+
+    scrollTop =  () => {
+        window.scroll({ top: 0, left: 0, behavior: 'smooth' })
+    }
+
     render() {
         return(
-            <Wrapper>
+            <Wrapper onClick={this.scrollTop.bind(this)} >
                 <TiArrowUpThick color={MainPink} size={25} />
             </Wrapper>
         )

@@ -12,16 +12,17 @@ import ScrollUpButton from '../Components/ScrollUpButton'
 
 const Wrapper = styledComponents.footer`
     background: ${MainGray};
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: 100px;
     bottom: 0;
-`
+`.withComponent('footer')
 
 export default class Footer extends Component {
     render() {
         return(
             <Wrapper>
+                <Container>Footer</Container>
                 <ScrollUpButton />
             </Wrapper>
         )

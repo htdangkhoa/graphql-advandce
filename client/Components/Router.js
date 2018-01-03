@@ -4,21 +4,25 @@ import {
     render,
     Component
 } from 'preact'
-import {
-    Container
-} from 'reactstrap'
 import Home from '../Pages/Home'
 import Error404 from '../Pages/404'
+
+import styledComponents from 'styled-components'
+
+const Wrapper = styledComponents.div`
+    margin-top: 60px;
+    margin-bottom: 105px;
+`
 
 export default class Router extends Component {
     render() {
         return(
-            <Container>
+            <Wrapper className='container' >
                 <Routes>
                     <Home path="/"></Home>
                     <Error404 type="404" default />
                 </Routes>
-            </Container>
+            </Wrapper>
         )
     }
 }

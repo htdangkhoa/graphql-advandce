@@ -11,8 +11,6 @@ export default styledComponents.div`
         }
     }
 
-    background-color: ${MainGray};
-
     .center {
         position: absolute;
         left: 50%;
