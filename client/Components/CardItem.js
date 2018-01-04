@@ -11,6 +11,7 @@ import {
     CardText
 } from 'reactstrap'
 import styledComponents from 'styled-components'
+import ImageLoad from './ImageLoad'
 
 const Wrapper = styledComponents.div`
     width: 100%;
@@ -38,13 +39,15 @@ const Wrapper = styledComponents.div`
     .image-container {
         max-height: 250px;
         position: relative;
+        border-top-left-radius: 7px;
+        border-top-right-radius: 7px;
 
         img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-top-left-radius: 8px;
-            border-top-right-radius: 8px;
+            border-top-left-radius: 7px;
+            border-top-right-radius: 7px;
         }
 
         .opacity {
@@ -53,6 +56,8 @@ const Wrapper = styledComponents.div`
             width: 100%;
             height: 100%;
             top: 0;
+            border-top-left-radius: 7px;
+            border-top-right-radius: 7px;
         }
     }
 `.withComponent(Card)
@@ -62,8 +67,8 @@ export default class CardItem extends Component {
         return(
             <Wrapper width={this.props.width}>
                 <div className='image-container'>
-                    <CardImg top src={this.props.image} alt="Card image cap" />
-                    <div className='opacity'/>
+                    <ImageLoad top src={this.props.image} />
+                    <div hidden className='opacity'/>
                 </div>
                 <CardBody>
                     <a href={'/' + this.props.id}>

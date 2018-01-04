@@ -12,6 +12,7 @@ import {
 } from 'reactstrap'
 import styledComponents from 'styled-components'
 import CardItem from '../Components/CardItem'
+import CardLoading from '../Components/CardLoading'
 
 const Wrapper = styledComponents.div`
     margin-left: -5px;
@@ -30,7 +31,8 @@ export default class Home extends Component {
         super(props)
 
         this.state = {
-            data: []
+            data: [{}, {}, {}, {}, {}, {}],
+            loaded: false
         }
     }
 
@@ -41,7 +43,7 @@ export default class Home extends Component {
             })
             .then(response => {
                 var { data } = response
-                this.setState({ data: data })
+                this.setState({ data: data, loaded: true })
                 
                 console.log(this.state.data)
             })
@@ -57,9 +59,13 @@ export default class Home extends Component {
                 <Wrapper className='row-eq-height'>{
                     this.state.data.map((data) => {
                         return(
-                            <Col lg='2' md='3' sm='4' xs='6'>
-                                <CardItem width={100} id={data._id} image={data.image} title={data.dish.eatery.name} description={data.caption}/>
-                            </Col>
+                            <Col lg='2' md='3' sm='4' xs='6'>{
+                                this.state.loaded !== true ? (
+                                    <CardLoading />
+                                ) : (
+                                    <CardItem width={100} id={data._id} image={data.image} title={data.dish.eatery.name} description={data.caption}/>
+                                )
+                            }</Col>
                         )
                     })
                 }</Wrapper> 
