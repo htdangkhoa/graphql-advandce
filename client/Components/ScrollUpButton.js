@@ -4,6 +4,9 @@ import {
     Component
 } from 'preact'
 import {
+    connect
+} from 'react-redux'
+import {
     Button
 } from 'reactstrap'
 import {
@@ -44,20 +47,55 @@ const Wrapper = styledComponents.button`
     }
 `.withComponent(Button)
 
-export default class ScrollUpButton extends Component {
+class ScrollUpButton extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            isTop: true
+        }
+    }
+
     componentWillMount() {
         polyfill.polyfill()
+
+        console.log(this.props)
+    }
+
+    componentDidMount() {
+        window.addEventListener('scroll', this.checkIsScrollTop)
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.checkIsScrollTop)
+    }
+
+    checkIsScrollTop = (event) => {
+        if (event.currentTarget.scrollY === 0) {
+            this.setState({isTop: true})
+        } else {
+            this.setState({isTop: false})
+        }
     }
 
     scrollTop =  () => {
         window.scroll({ top: 0, left: 0, behavior: 'smooth' })
+        // var { dispatch } = this.props
+        // this.props.dispatch({type: 'TOGGLE'})
     }
 
     render() {
         return(
-            <Wrapper onClick={this.scrollTop.bind(this)} >
+            <Wrapper hidden={this.state.isTop} onClick={this.scrollTop.bind(this)} >
                 <TiArrowUpThick color={MainPink} size={25} />
             </Wrapper>
         )
     }
 }
+
+export default connect(function(state) {
+    var { mang, isAdding } = state
+    return {
+        mang, isAdding
+    }
+})(ScrollUpButton)

@@ -4,6 +4,9 @@ import {
     Component
 } from 'preact'
 import {
+    connect
+} from 'react-redux'
+import {
     Row,
     Col
 } from 'reactstrap'
@@ -42,6 +45,10 @@ export default class Home extends Component {
                 
                 console.log(this.state.data)
             })
+
+        // var { dispatch } = this.props
+        // dispatch({type: 'TOGGLE'})
+        // console.log(this.props)
     }
 
     render() {
@@ -60,3 +67,12 @@ export default class Home extends Component {
         )
     }
 }
+
+// export default connect(state => {
+//     var { mang, isAdding } = state
+//     return {
+//         mang,
+//         isAdding,
+//         data: []
+//     }
+// })(Home)
