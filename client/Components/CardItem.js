@@ -68,7 +68,7 @@ export default class CardItem extends Component {
             <Wrapper width={this.props.width}>
                 <div className='image-container'>
                     <ImageLoad top src={this.props.image} />
-                    <div hidden className='opacity'/>
+                    <div className='opacity'/>
                 </div>
                 <CardBody>
                     <a href={'/' + this.props.id}>
