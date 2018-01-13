@@ -37,7 +37,7 @@ const Wrapper = styledComponents.div`
     }
 
     .image-container {
-        max-height: 250px;
+        // max-height: 250px;
         position: relative;
         border-top-left-radius: 7px;
         border-top-right-radius: 7px;

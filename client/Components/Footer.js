@@ -3,9 +3,7 @@ import {
     render,
     Component
 } from 'preact'
-import {
-    Container
-} from 'reactstrap'
+import { Container } from 'reactstrap'
 import styledComponents from 'styled-components'
 import { MainGray } from '../Styles/Colors';
 import ScrollUpButton from '../Components/ScrollUpButton'

@@ -3,19 +3,11 @@ import {
     render,
     Component
 } from 'preact'
-import {
-    connect
-} from 'react-redux'
-import {
-    Button
-} from 'reactstrap'
-import {
-    TiArrowUpThick
-} from 'react-icons/ti'
+import { connect } from 'react-redux'
+import { Button } from 'reactstrap'
+import { TiArrowUpThick } from 'react-icons/ti'
 import styledComponents from 'styled-components'
-import {
-    MainPink
-} from '../Styles/Colors'
+import { MainPink } from '../Styles/Colors'
 import polyfill from 'smoothscroll-polyfill'
 
 const Wrapper = styledComponents.button`

@@ -3,9 +3,7 @@ import {
     render,
     Component
 } from 'preact'
-import {
-    connect
-} from 'react-redux'
+import { connect } from 'react-redux'
 import {
     Row,
     Col
@@ -13,6 +11,12 @@ import {
 import styledComponents from 'styled-components'
 import CardItem from '../Components/CardItem'
 import CardLoading from '../Components/CardLoading'
+
+/**
+ * GraphQL client.
+ */
+import gql from 'graphql-tag'
+import client from '../GraphQL/Client'
 
 const Wrapper = styledComponents.div`
     margin-left: -5px;
@@ -26,31 +30,44 @@ const Wrapper = styledComponents.div`
     }
 `.withComponent(Row)
 
-export default class Home extends Component {
+class Home extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            data: [{}, {}, {}, {}, {}, {}],
+            data: [{}, {}, {}, {}],
             loaded: false
         }
     }
 
     componentDidMount() {
-        fetch('http://latte.lozi.vn/v1.2/search/blocks?skip=0&q=gà&limit=24&t=popular&cityId=50')
-            .then(result => {
-                return result.json()
-            })
-            .then(response => {
-                var { data } = response
-                this.setState({ data: data, loaded: true })
-                
-                console.log(this.state.data)
-            })
-
         // var { dispatch } = this.props
         // dispatch({type: 'TOGGLE'})
         // console.log(this.props)
+
+        var query = gql`
+            query {
+                SearchWithFilters(
+                    filters: {
+                        name: "gà"
+                    }, limit: 20, skip: 20) {
+                    id
+                    name
+                    categories
+                    eatary
+                    images
+                }
+            }
+        `
+
+        client.query({
+            query
+        })
+        .then(res => {
+            console.log(res.data.SearchWithFilters)
+            this.setState({data: res.data.SearchWithFilters, loaded: true})
+        })
+        .catch(error => console.log(error))
     }
 
     render() {
@@ -59,11 +76,11 @@ export default class Home extends Component {
                 <Wrapper className='row-eq-height'>{
                     this.state.data.map((data) => {
                         return(
-                            <Col lg='2' md='3' sm='4' xs='6'>{
+                            <Col lg='3' md='3' sm='4' xs='6'>{
                                 this.state.loaded !== true ? (
                                     <CardLoading />
                                 ) : (
-                                    <CardItem width={100} id={data._id} image={data.image} title={data.dish.eatery.name} description={data.caption}/>
+                                    <CardItem width={100} id={data.id} image={data.images[0]} title={data.eatary.name} description={data.caption}/>
                                 )
                             }</Col>
                         )
@@ -82,3 +99,5 @@ export default class Home extends Component {
 //         data: []
 //     }
 // })(Home)
+
+export default Home

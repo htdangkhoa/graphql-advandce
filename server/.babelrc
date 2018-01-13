@@ -1,8 +1,7 @@
 {
     "presets": [
-        "es2017", 
-        "stage-3", 
-        "node8"
+        "es2015", 
+        "stage-0"
     ],
     "plugins": [
     ]
