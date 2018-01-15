@@ -56,6 +56,7 @@ class Home extends Component {
                     categories
                     eatary
                     images
+                    discription
                 }
             }
         `
@@ -80,7 +81,7 @@ class Home extends Component {
                                 this.state.loaded !== true ? (
                                     <CardLoading />
                                 ) : (
-                                    <CardItem width={100} id={data.id} image={data.images[0]} title={data.eatary.name} description={data.caption}/>
+                                    <CardItem width={100} id={data.id} image={data.images[0]} title={data.eatary.name} description={data.discription}/>
                                 )
                             }</Col>
                         )

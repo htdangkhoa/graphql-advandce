@@ -1,10 +1,10 @@
 import User from '../../models/user'
 
-const AddUser = (root, args) => {
-    var { username, password } = args
+const SignUp = (root, args) => {
+    var { email, password } = args
     return new Promise((resolve, reject) => {
         new User({
-            username,
+            email,
             password
         }).save((error, user) => {
             if (error) return reject(error)
@@ -15,5 +15,5 @@ const AddUser = (root, args) => {
 }
 
 export {
-    AddUser
+    SignUp
 }

@@ -1,7 +1,7 @@
 export default `
     type USER_TYPE {
         _id: String,
-        username: String,
+        email: String,
         password: String!
     }
 `

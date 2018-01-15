@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 import morgan from 'morgan'
 import express from 'express'
 import cors from 'cors'
+import cookiesParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 import mongoose from 'mongoose'
 import graphqlHTTP from 'express-graphql'
@@ -14,6 +15,13 @@ import compression from 'compression'
 import helmet from 'helmet'
 import apicache from 'apicache'
 import schema from './graphql/schema'
+
+/**
+ * Passport
+ */
+import passport from './passport'
+import session from 'client-sessions'
+import { secret } from './utils'
 
 dotenv.config()
 
@@ -50,38 +58,44 @@ app.get('/', (req, res) => {
 app.use([
     morgan('dev'),
     cors(),
+    cookiesParser(),
     bodyParser.urlencoded({ extended: true, defaultCharset: 'utf-8', parameterLimit: 1024 }),
     bodyParser.json(),
     bodyParser.raw(),
     bodyParser.text(),
-    compression(),
-    helmet(),
-    timeout('5s')
+    session({ cookieName: 'session', secret, duration: 1000 * 60 * 60 * 24 * 365 * 999 }),
+    passport.initialize(),
+    passport.session(),
+    compression()
 ])
 
-app.get('/fetch', cache('2 minutes'), (req, res) => {
-    var a = require('axios').default
-
-    a.request({
-        url: 'https://latte.lozi.vn/v1.2/search/blocks',
-        method: 'get',
-        params: {
-            q: 'gà',
-            skip: 0,
-            limit: 24,
-            t: 'popular',
-            cityId: 50
-        }
-    })
-    .then(results => {
-        console.log(results.data)
-        return res.status(200).send(results.data)
-    })
-    .catch(error => {
-        console.log(error)
-        return res.status(204).send('faild')
-    })
+app.get('/session', (req, res) => {
+    res.send(req.session)
 })
+app.get('/login', passport.authenticate('local'), (req, res) => {
+    res.send('ok')
+})
+app.get('/logout', (req, res) => {
+    req.logout()
+    req.session.destroy();
+    res.send(req.session)
+})
+
+const graphQLCallback = (req, res, isDev) => {
+    var startTime = Date.now()
+    
+    return {
+        schema,
+        graphiql: isDev,
+        extensions({ document, variables, operationName, result }) {
+            return { runTime: `${Date.now() - startTime}ms` }
+        },
+        context: { 
+            req,
+            res
+        }
+    }
+}
 
 if (cluster.isMaster) {
     console.log(`Server is running on port ${process.env.PORT}`)
@@ -98,22 +112,11 @@ if (cluster.isMaster) {
     })
 } else {
     app.use('/graphql', graphqlHTTP((req, res) => {
-        return {
-            schema,
-            graphiql: false
-        }
+        return graphQLCallback(req, res, false)
     }))
 
     app.use('/graphiql', graphqlHTTP((req, res) => {
-        var startTime = Date.now()
-    
-        return {
-            schema,
-            graphiql: true,
-            extensions({ document, variables, operationName, result }) {
-                return { runTime: `${Date.now() - startTime}ms` }
-            }
-        }
+        return graphQLCallback(req, res, true)
     }))
     
     app.use((req, res) => {

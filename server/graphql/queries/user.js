@@ -1,27 +1,46 @@
 import User from '../../models/user'
+import passport from '../../passport'
+import { unauthorized } from '../../utils'
 
-const SignIn = (_, args) => {
-    var { username, password } = args
+const SignIn = (_, args, context) => {
+    var { email, password } = args
+    var { req, res } = context
 
     return new Promise((resolve, reject) => {
         User.findOne({
-            username
+            email
         }, (error, user) => {
             if (error) return reject(error)
 
-            if (!user) return reject('User not found.')
+            if (!user) return reject(unauthorized(res))
 
             user.comparePassword(password, (err, isMatch) => {
                 if (err) return reject(err)
 
-                if (!isMatch) reject('Username or password is incorrect!!!')
+                if (!isMatch) return reject(unauthorized(res))
 
-                return resolve(user)
+                var { _id } = user
+
+                req.login({ _id, email }, e => {
+                    if (e) return reject(e)
+
+                    return resolve({ _id, email })
+                })
             })
         })
     })
 }
 
+const Logout = (_, args, context) => {
+    var { req } = context
+
+    req.logout();
+    req.session.destroy();
+
+    return 'Logout successful'
+}
+
 export {
-    SignIn
+    SignIn,
+    Logout,
 }

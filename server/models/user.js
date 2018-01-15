@@ -8,7 +8,7 @@ const User = new Schema({
         type: Schema.Types.ObjectId,
         default: () => { return Types.ObjectId() }
     },
-    username: {
+    email: {
         type: Schema.Types.String,
         required: true
     },
@@ -41,4 +41,4 @@ User.methods.comparePassword = function(password, next) {
     })
 }
 
-export default mongoose.model('user', User)
+export default mongoose.model('users', User)
