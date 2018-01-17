@@ -6,7 +6,7 @@ import {
 
 const img = new Image();
 
-export default class ImageLoad extends Component {
+class ImageLoad extends Component {
     constructor(props) {
         super(props)
 
@@ -43,3 +43,5 @@ export default class ImageLoad extends Component {
         }
     }
 }
+
+export default ImageLoad

@@ -11,10 +11,10 @@ import styledComponents from 'styled-components'
 
 const Wrapper = styledComponents.div`
     margin-top: 60px;
-    margin-bottom: 105px;
+    margin-bottom: 160px;
 `
 
-export default class Router extends Component {
+class Router extends Component {
     render() {
         return(
             <Wrapper className='container' >
@@ -26,3 +26,5 @@ export default class Router extends Component {
         )
     }
 }
+
+export default Router

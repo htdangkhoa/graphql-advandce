@@ -16,7 +16,7 @@ const Wrapper = styledComponents.footer`
     bottom: 0;
 `.withComponent('footer')
 
-export default class Footer extends Component {
+class Footer extends Component {
     render() {
         return(
             <Wrapper>
@@ -26,3 +26,5 @@ export default class Footer extends Component {
         )
     }
 }
+
+export default Footer

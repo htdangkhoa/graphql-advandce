@@ -11,6 +11,8 @@ import {
 import styledComponents from 'styled-components'
 import CardItem from '../Components/CardItem'
 import CardLoading from '../Components/CardLoading'
+import Filter from '../Components/Filter'
+import Paging from '../Components/Paging'
 
 /**
  * GraphQL client.
@@ -74,6 +76,7 @@ class Home extends Component {
     render() {
         return(
             <div>
+                <Filter />
                 <Wrapper className='row-eq-height'>{
                     this.state.data.map((data) => {
                         return(
@@ -86,7 +89,8 @@ class Home extends Component {
                             }</Col>
                         )
                     })
-                }</Wrapper> 
+                }</Wrapper>
+                <Paging />
             </div>
         )
     }

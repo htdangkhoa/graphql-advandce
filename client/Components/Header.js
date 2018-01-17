@@ -33,7 +33,7 @@ const Wrapper = Styled.div`
     }
 `
 
-export default class Header extends Component {
+class Header extends Component {
     constructor(props) {
         super(props)
 
@@ -57,19 +57,6 @@ export default class Header extends Component {
                         <NavbarBrand href="/">Food Finder</NavbarBrand>
                         {/* <NavbarToggler onClick={this.toggle} /> */}
                         <Nav className="ml-auto" navbar>
-                            <NavItem hidden>
-                                <Input placeholder='Search'/>
-                            </NavItem>
-                            <NavItem hidden>
-                                <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-                                    <DropdownToggle caret size="md">
-                                        Location
-                                    </DropdownToggle>
-                                    <DropdownMenu className='listLocation'>
-                                        <DropdownItem>Another Action</DropdownItem>
-                                    </DropdownMenu>
-                                </ButtonDropdown>
-                            </NavItem>
                             <NavItem>
                                 <NavLink href="/signin">Sign in</NavLink>
                             </NavItem>
@@ -80,3 +67,5 @@ export default class Header extends Component {
         )
     }
 }
+
+export default Header

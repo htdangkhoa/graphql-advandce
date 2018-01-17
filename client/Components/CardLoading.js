@@ -163,7 +163,7 @@ const Wrapper = styledComponents.div`
     }
 `
 
-export default class CardLoading extends Component {
+class CardLoading extends Component {
     render() {
         return(
             <Wrapper>
@@ -190,3 +190,5 @@ export default class CardLoading extends Component {
         )
     }
 }
+
+export default CardLoading

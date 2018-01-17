@@ -62,7 +62,7 @@ const Wrapper = styledComponents.div`
     }
 `.withComponent(Card)
 
-export default class CardItem extends Component {
+class CardItem extends Component {
     render() {
         return(
             <Wrapper width={this.props.width}>
@@ -80,3 +80,5 @@ export default class CardItem extends Component {
         )
     }
 }
+
+export default  CardItem
