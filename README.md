@@ -1,4 +1,7 @@
 # graphql-advandce
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/htdangkhoa/graphql-advandce.svg)](https://greenkeeper.io/)
+
 > This project is using GraphQL and PReact.  
 > - Document for [GraphQL](http://graphql.org/learn/)
 > - Document for [PReact](https://github.com/developit/preact/wiki)
